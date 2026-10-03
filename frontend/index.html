@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posture AI</title>
+</head>
+<body>
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-mark">P</div>
+            <div>
+                <div class="brand-name">Posture<span>AI</span></div>
+                <div class="brand-subtitle">Smart sitting posture analysis</div>
+            </div>
+        </div>
+        <div id="apiStatus" class="status-pill status-loading">
+            <span class="status-dot"></span>
+            Connecting...
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <div>
+                <p class="eyebrow">AI POSTURE ANALYZER</p>
+                <h1>Check your sitting posture<br><span>in real time.</span></h1>
+                <p class="hero-text">
+                    Use your camera or upload a photo. MediaPipe detects your body
+                    landmarks, then your trained Random Forest model classifies the posture.
+                </p>
+            </div>
+        </section>
+
+        <section class="mode-switch">
+            <button id="cameraTab" class="mode-button active">Live Camera</button>
+            <button id="uploadTab" class="mode-button">Upload Image</button>
+        </section>
+
+        <section class="workspace">
+            <div class="viewer-card">
+                <div class="viewer-header">
+                    <div>
+                        <div class="section-title">Camera Preview</div>
+                        <div id="viewerHint" class="section-hint">Position your upper body inside the frame.</div>
+                    </div>
+                    <div id="detectionBadge" class="detection-badge">Waiting</div>
+                </div>
+
+                <div id="viewer" class="viewer">
+                    <video id="video" autoplay playsinline muted></video>
+                    <canvas id="canvas"></canvas>
+
+                    <div id="emptyState" class="empty-state">
+                        <div class="empty-icon">◉</div>
+                        <div class="empty-title">Camera is off</div>
+                        <div class="empty-text">Start the camera to analyze your posture.</div>
+                    </div>
+
+                    <div class="scan-line"></div>
+                </div>
+
+                <div class="viewer-controls">
+                    <button id="startCameraButton" class="primary-button">Start Camera</button>
+                    <button id="stopCameraButton" class="secondary-button" disabled>Stop</button>
+
+                    <label id="uploadLabel" class="upload-button hidden">
+                        <input id="imageInput" type="file" accept="image/*">
+                        Choose Image
+                    </label>
+                </div>
+
+                <p id="message" class="message">Initializing MediaPipe...</p>
+            </div>
+
+            <aside class="result-card">
+                <div class="result-heading">
+                    <div>
+                        <div class="section-title">Classification</div>
+                        <div class="section-hint">Random Forest prediction</div>
+                    </div>
+                    <div class="ai-chip">AI</div>
+                </div>
+
+                <div id="postureResult" class="posture-result neutral">
+                    <div id="postureLabel" class="posture-label">—</div>
+                    <div id="confidenceText" class="confidence-text">Waiting for detection</div>
+                </div>
+
+                <div class="confidence-wrap">
+                    <div class="confidence-header">
+                        <span>Confidence</span>
+                        <span id="confidencePercent">0%</span>
+                    </div>
+                    <div class="progress-track">
+                        <div id="confidenceBar" class="progress-bar"></div>
+                    </div>
+                </div>
+
+                <div class="probabilities">
+                    <div class="subheading">Class probabilities</div>
+                    <div id="probabilityList" class="probability-list">
+                        <div class="prob-empty">No prediction yet</div>
+                    </div>
+                </div>
+
+                <div class="features">
+                    <div class="subheading">Detected features</div>
+                    <div id="featureGrid" class="feature-grid">
+                        <div class="feature-empty">No pose detected</div>
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        <section class="info-grid">
+            <div class="info-card">
+                <div class="info-number">01</div>
+                <h3>Detect</h3>
+                <p>MediaPipe Pose finds the body landmarks from your camera or uploaded image.</p>
+            </div>
+            <div class="info-card">
+                <div class="info-number">02</div>
+                <h3>Measure</h3>
+                <p>Angles and normalized distances are calculated using the same features as training.</p>
+            </div>
+            <div class="info-card">
+                <div class="info-number">03</div>
+                <h3>Classify</h3>
+                <p>Your trained Random Forest model predicts the sitting posture and confidence.</p>
+            </div>
+        </section>
+
+        <footer>
+            <span>PostureAI</span>
+            <span>MediaPipe + FastAPI + Random Forest</span>
+        </footer>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>

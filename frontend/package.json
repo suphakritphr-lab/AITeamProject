@@ -1,0 +1,14 @@
+{
+  "name": "posture-ai-web",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0"
+  },
+  "dependencies": {
+    "@mediapipe/tasks-vision": "latest",
+    "vite": "latest"
+  },
+  "devDependencies": {}
+}
