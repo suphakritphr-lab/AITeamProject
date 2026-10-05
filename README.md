@@ -1,79 +1,42 @@
-# PostureAI Web
+# README.md
 
-This project uses:
-- MediaPipe Pose Landmarker in the browser
-- FastAPI
-- The existing `posture_model.pkl`
-- The exact 13 feature columns used by the uploaded `train.py`
+## PostureAI Web
 
-## 1. Put your model here
+## 1. Dataset Description
 
-Copy your existing file:
+This dataset contains csv body feature from processing image with mediapipe pose to classification sit posture.
 
-    backend/posture_model.pkl
+* **Number of datas:** 450
+* **Number of classes:** 3
 
-Do not retrain unless you want to change the model.
+---
 
-## 2. Install backend dependencies
+## 2. Class Labels
 
-From the `backend` folder:
+| Label | Description      |
+| ----- | ---------------- |
+| 0     | Good             |
+| 1     | Forward leaning  |
+| 2     | Slouching        |
 
-    pip install fastapi uvicorn pandas joblib
 
-## 3. Start the backend
+---
 
-From `backend`:
+## 3. Dataset Structure
 
-    uvicorn server:app --host 0.0.0.0 --port 8000 --ssl-keyfile ..\certs\key.pem --ssl-certfile ..\certs\cert.pem
+```text
+nose_x, nose_y, left_shoulder_x, left_shoulder_y, right_shoulder_x, right_shoulder_y, left_elbow_angle, right_elbow_angle, left_knee_angle, right_knee_angle, shoulder_angle, torso_angle, normalized_head_distance, posture
+```
 
-## 4. Install frontend
+---
 
-From `frontend`:
+## 4. Data Source
 
-    npm install
+Images were collected from images stock:
+    stock adobe, istock, shutterstock, gettyimage, alamy, vistacreate, bigstock, kaggle and roboflow
 
-## 5. Start frontend
+---
 
-From `frontend`:
+## 5. Annotation
 
-    npm run dev
-
-Vite will print an address such as:
-
-    https://localhost:5173/
-
-For another device on the same LAN, use:
-
-    https://YOUR-PC-LAN-IP:5173/
-
-Example:
-
-    https://192.168.1.100:5173/
-
-The frontend automatically sends prediction requests to:
-
-    https://YOUR-PC-LAN-IP:8000/
-
-## Camera note
-
-Browser camera access can be restricted on insecure origins. `localhost` is normally allowed, but another LAN device may require a secure context depending on the browser. If the camera does not work over LAN, use HTTPS for the frontend or test on the PC first.
-
-## Important
-
-The model was trained with these exact features:
-
-    nose_x
-    nose_y
-    left_shoulder_x
-    left_shoulder_y
-    right_shoulder_x
-    right_shoulder_y
-    left_elbow_angle
-    right_elbow_angle
-    left_knee_angle
-    right_knee_angle
-    shoulder_angle
-    torso_angle
-    normalized_head_distance
-
-The new frontend intentionally uses the same feature calculations as the uploaded `main.js`.
+* Annotated by two office syndrome students
